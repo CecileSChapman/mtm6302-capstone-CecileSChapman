@@ -1,0 +1,294 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+/* reset end */
+
+/* my styles */
+
+/* theming */
+:root {
+    /* colours */
+    --background-primary: #333333; 
+    --background-secondary: #474747;
+    --title: white;
+    --red: #CD3939;
+    --button-hover: #E55656;
+    --text-primary: #E8E8E8;
+    --text-secondary: #BFBFBF;
+    --checkbox-border: #707070;
+    --drop-shadow: rgba(0, 0, 0, 0.16);
+
+    /* pokemon type colours */
+    --normal: #A8A77A;
+    --fire: #EE8130;
+    --water: #6390F0;
+    --electric: #F7D02C;
+    --grass: #7AC74C;
+    --ice: #96D9D6;
+    --fighting: #C22E28;
+    --poison: #A33EA1;
+    --ground: #E2BF65;
+    --flying: #A98FF3;
+    --psychic: #F95587;
+    --bug: #A6B91A;
+    --rock: #B6A136;
+    --ghost: #735797;
+    --dragon: #6F35FC;
+    --dark: #705746;
+    --steel: #B7B7CE;
+    --fairy: #D685AD;
+}
+
+body {
+    background-color: var(--background-primary);
+    font-family: 'Inter', sans-serif;
+    color: var(--text-primary);
+    font-size: 24px;
+    overflow-x: hidden;
+}
+
+header {
+    background-color: var(--red);
+    padding: 20px;
+    box-shadow: 0px 3px 6px var(--drop-shadow);
+}
+
+h1 {
+    color: var(--title);
+    font-family: 'Roboto', sans-serif;
+    font-size: 34px;
+    font-weight: 400;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.content-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.pokedex {
+    display: grid;
+    grid-template-columns: repeat(4, auto); /* 4 columns */
+    grid-template-rows: auto;
+    align-content: center;
+    justify-items: center;
+    gap: 20px;
+}
+
+/* load more button */
+
+#loadMore {
+    background-color: var(--red);
+    color: white;
+    font-family: 'Roboto', sans-serif;
+    font-size: 24px;
+    padding: 10px 20px;
+    margin: 40px;
+    border: none;
+    border-radius: 32px;
+    cursor: pointer;
+    box-shadow: 0px 3px 6px var(--drop-shadow);
+}
+
+#loadMore:hover {
+    background-color: var(--button-hover);
+}
+
+.button-div {
+    display: flex;
+    justify-content: center;
+
+}
+
+/* pokemon card */
+
+.pokemon-card {
+    display:flex;
+    flex-direction: column;
+    background-color: var(--background-secondary);
+    border-radius: 26px;
+    padding: 12px 0px 0px 12px;
+    width: 13vw;
+    font-family: 'Roboto', sans-serif;
+    box-shadow: 0px 3px 6px var(--drop-shadow);
+
+}
+
+.pokemon-details-top {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.pokemon-details-bottom {
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.pokemon-card p {
+    text-transform: capitalize;
+}
+
+.pokemon-img {
+    align-self: flex-end;
+}
+
+.pokemon-img img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.pokemon-number {
+    color: var(--text-secondary);
+    font-size: 19px;
+}
+
+.pokemon-name {
+    font-size: 21px;
+    padding-bottom: 5px;
+}
+
+/* caught pokemon checkbox toggle */
+
+/* checkbox label */
+.checkbox-label {
+    display: flex;
+    align-items: flex-end;
+    padding-bottom: 25px;
+}
+
+/* unchecked */
+.checkbox-custom {
+    width: 26px;
+    height: 26px;
+    background-color: white;
+    border: 1px solid var(--checkbox-border);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* checked */
+.default-checkbox:checked + .checkbox-custom::after {
+    content: '';
+    display: block;
+    width: 26px;
+    height: 26px;
+    background-image: url('img/pokeball.png');
+    background-size: contain;
+    background-repeat: no-repeat;    
+    background-color: transparent;
+    border: none;
+}
+
+/* Hide the default checkbox */
+.default-checkbox[type="checkbox"] {
+    display: none;
+}
+
+
+/* responsive styles */
+
+/* tablet */
+
+@media (max-width: 768px) {
+
+    .pokedex {
+        grid-template-columns: repeat(3, auto);
+    }
+    
+    .pokemon-name {
+        font-size: 17px;
+    }
+
+    .pokemon-card {
+        width: 28vw;
+    }
+
+    .pokemon-number {
+        font-size: 15px;
+    }
+}
+
+/* mobile */
+
+
+@media (max-width: 480px) {
+
+    .pokedex {
+        grid-template-columns: repeat(2, auto);
+    }
+    
+    .pokemon-name {
+        font-size: 15px;
+    }
+
+    .pokemon-card {
+        width: 40vw;
+    }
+
+    .pokemon-number {
+        font-size: 13px;
+    }
+}
+
+
+
+
+

@@ -17,3 +17,11 @@
 - User will be able to click the circle to signify the pokemon is caught.
 
 - the pokeball means that the pokemon is caught
+
+
+## Part 3
+
+### Sources
+
+checkbox- https://www.w3schools.com/howto/howto_css_custom_checkbox.asp
+
