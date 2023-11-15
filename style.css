@@ -61,6 +61,7 @@ table {
     --text-primary: #E8E8E8;
     --text-secondary: #BFBFBF;
     --checkbox-border: #707070;
+    --stat-bar-background: #D9D9D9;
     --drop-shadow: rgba(0, 0, 0, 0.16);
 
     /* pokemon type colours */
@@ -96,6 +97,7 @@ header {
     background-color: var(--red);
     padding: 20px;
     box-shadow: 0px 3px 6px var(--drop-shadow);
+    z-index: 10003;
 }
 
 h1 {
@@ -156,6 +158,7 @@ main {
 
 .pokemon-card {
     display:flex;
+    position: relative;
     flex-direction: column;
     background-color: var(--background-secondary);
     border-radius: 26px;
@@ -205,6 +208,18 @@ main {
     padding-bottom: 5px;
 }
 
+.pokemon-card:hover::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.2); /* overlay */
+    border-radius: 26px;
+    cursor: pointer;
+}
+
 /* caught pokemon checkbox toggle */
 
 /* checkbox label */
@@ -222,6 +237,7 @@ main {
     border: 1px solid var(--checkbox-border);
     border-radius: 50%;
     cursor: pointer;
+    z-index: 1000;
 }
 
 /* checked */
@@ -240,6 +256,75 @@ main {
 /* Hide the default checkbox */
 .default-checkbox[type="checkbox"] {
     display: none;
+}
+
+/* pokemon details overlay */
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--background-primary);
+    z-index: 10000;
+    
+}
+
+.overlay-background {
+    position: absolute;
+    top: 20%;
+    left: 0;
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+    height: calc(100% - 100px);
+    background-color: var(--background-secondary);
+    z-index: 10001;
+
+}
+.overlay-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    border-radius: 10px;
+    width: auto;
+    z-index: 10002;
+}
+
+#pokemonType, #pokemonAbilities, #pokemonStats {
+    margin-top: 20px;
+}
+
+.stat-bar-container {
+    background-color: var(--stat-bar-background);
+}
+
+.stats-list {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+/* hides scroll */
+body.overlay-open {
+    overflow: hidden;
+}
+
+/* back button */
+#closeOverlay {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    color: var(--text-secondary);
+    position: absolute;
+    top: 20px;
+    left: 20px;
 }
 
 

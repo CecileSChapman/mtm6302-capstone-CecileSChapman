@@ -50,3 +50,45 @@ function getPokemonId(url) {
 
 // event listener to call the displayPokemon function when the page loads
 window.addEventListener('load', displayPokemon);
+
+// pokemon details overlay
+function openPokemonDetails(pokemon) {
+    const overlay = document.getElementById('pokemonDetails'); // stores overlay div
+    const overlayHeader = document.getElementById('pokemonName'); //stores overlay h2, name of pokemon
+    
+    //updates pokemon name
+    overlayHeader.innerText = pokemon.name;
+
+    //shows the overlay
+    overlay.style.display = 'block';
+
+    //close overlay button
+    const closeOverlay = document.getElementById('closeOverlay');
+    closeOverlay.addEventListener('click', (event) => {
+        overlay.style.display = 'none';
+    });
+}
+
+async function fetchPokemonDetails(pokemonName) {
+    const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}`);
+    const data = await response.json();
+    return data;
+}
+
+ // pokemon card clicks
+ document.addEventListener('click', async (event) => {
+    const pokemonCard = event.target.closest('.pokemon-card');
+    
+    //check for checkbox click to not open the overlay
+
+    if (event.target.classList.contains('default-checkbox', 'checkbox-custom')) {
+        return;
+    }
+
+    if (pokemonCard) {
+        const pokemonName = pokemonCard.querySelector('.pokemon-name').innerText;
+        const pokemonDetails = await fetchPokemonDetails(pokemonName);
+
+        openPokemonDetails(pokemonDetails);
+    }
+ });
