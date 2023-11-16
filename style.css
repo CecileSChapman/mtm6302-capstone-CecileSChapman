@@ -269,7 +269,9 @@ main {
     height: 100%;
     background-color: var(--background-primary);
     z-index: 10000;
-    
+    max-height: 100vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .overlay-background {
@@ -285,18 +287,86 @@ main {
 
 }
 .overlay-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     position: absolute;
-    top: 50%;
+    top: 25%;
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 20px;
     border-radius: 10px;
-    width: auto;
+    width: 70%;
     z-index: 10002;
 }
 
-#pokemonType, #pokemonAbilities, #pokemonStats {
-    margin-top: 20px;
+.overlay-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 70%;
+    padding-top: 5%;
+}
+
+#pokemonName {
+    font-size: xx-large;
+    text-transform: capitalize;
+}
+
+.pokemonType {
+    margin: 10px 15px 10px 15px;
+    padding: 10px 20px 10px 20px;
+    border-radius: 4px;
+}
+
+#pokemonNumber {
+    color: var(--text-secondary);
+}
+
+.grass {
+    background-color: var(--grass);
+    border: 1px solid #A2D883;
+}
+
+.poison {
+    background-color: var(--poison);
+    border: 1px solid #C76BC5;
+}
+
+#pokemonTypeContainer {
+    display: flex;
+}
+
+#pokemonAbilitiesContainer {
+    display: flex;
+    align-items: center;
+    
+    width: 70%;
+    padding-top: 30px;
+    padding-bottom: 20px;
+}
+#pokemonAbilitiesContainer h3 {
+    font-weight: 500;
+}
+
+#pokemonAbilities {
+    display: flex;
+    align-items: center;
+    color: var(--text-secondary)
+
+}
+
+.abilityName {
+    padding-left: 20px;
+}
+
+#pokemonStats {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 70%;
+    padding-top: 20px;
+    padding-bottom: 30px;
 }
 
 .stat-bar-container {
@@ -305,15 +375,16 @@ main {
 
 .stats-list {
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    align-items: center;
-    margin-top: 10px;
 }
 
-/* hides scroll */
-body.overlay-open {
-    overflow: hidden;
+#officialArtworkImg {
+    max-width: 300px;
+    height: auto;
+    
 }
+
 
 /* back button */
 #closeOverlay {

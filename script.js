@@ -17,6 +17,8 @@ async function displayPokemon() {
         // pokemon number
         const pokemonNumber = '#' + String(index + 1).padStart(4, '0');
 
+        pokemonCard.id = "pokemon-" + index;
+
         // pokemon card html
         pokemonCard.innerHTML = `
             <div class="pokemon-details-top">
@@ -29,8 +31,9 @@ async function displayPokemon() {
                 <!--checkbox for marking caught pokemon-->
                 <label for="${pokemonNumber}" class="checkbox-label">
                     <input type="checkbox" id="${pokemonNumber}" class="default-checkbox">
-                    <span class="checkbox-custom"></span>
+                    <span id="checkbox-${pokemonNumber}" class="checkbox-custom"></span>
                 </label>
+                <input type='hidden' value='${pokemon.url}' id='pokemonUrl-${index}'/>
 
                 <!--thumbnail-->
                 <div class="pokemon-img">
@@ -48,14 +51,27 @@ function getPokemonId(url) {
     return parts[parts.length - 2]; // the id is the second-to-last part of the url
 }
 
+
 // event listener to call the displayPokemon function when the page loads
 window.addEventListener('load', displayPokemon);
 
 // pokemon details overlay
-function openPokemonDetails(pokemon) {
+function openPokemonDetails(pokemon, pokemonIndex) {
     const overlay = document.getElementById('pokemonDetails'); // stores overlay div
+    const officialArtwork = document.getElementById('officialArtwork'); //stores artwork div
     const overlayHeader = document.getElementById('pokemonName'); //stores overlay h2, name of pokemon
+    const pokemonUrl = document.getElementById('pokemonUrl-' + pokemonIndex).value;
+    parseInt(pokemonIndex);
+    const pokemonNumber = '#' + String(pokemonIndex + 1).padStart(4, '0');
+    const pokemonNumberText = document.getElementById('pokemonNumber');
+    console.log(pokemonIndex);
     
+    //updates artwork
+    officialArtwork.innerHTML = `<img id="officialArtworkImg" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${getPokemonId(pokemonUrl)}.png" alt="${pokemon.name}"/>`
+    
+    //updates pokemon number
+    pokemonNumberText.innerText = pokemonNumber;
+
     //updates pokemon name
     overlayHeader.innerText = pokemon.name;
 
@@ -77,18 +93,27 @@ async function fetchPokemonDetails(pokemonName) {
 
  // pokemon card clicks
  document.addEventListener('click', async (event) => {
-    const pokemonCard = event.target.closest('.pokemon-card');
-    
-    //check for checkbox click to not open the overlay
+    const targetElement = event.target;
+    const classNames = "" + targetElement.className;
+    const id = "" + targetElement.id;
 
-    if (event.target.classList.contains('default-checkbox', 'checkbox-custom')) {
-        return;
-    }
+    if(classNames.includes("pokemon-card")){
+        const pokemonCard = targetElement;
+        const pokemonIndex = id.split('-')[1];
+        
+        //check for checkbox click to not open the overlay
 
-    if (pokemonCard) {
-        const pokemonName = pokemonCard.querySelector('.pokemon-name').innerText;
-        const pokemonDetails = await fetchPokemonDetails(pokemonName);
+        if (event.target.classList.contains('default-checkbox', 'checkbox-custom')) {
+            return;
+        }
 
-        openPokemonDetails(pokemonDetails);
+        if (pokemonCard) {
+            const pokemonName = pokemonCard.querySelector('.pokemon-name').innerText;
+            const pokemonDetails = await fetchPokemonDetails(pokemonName);
+
+            console.log(pokemonDetails)
+
+            openPokemonDetails(pokemonDetails, pokemonIndex);
+        }
     }
  });

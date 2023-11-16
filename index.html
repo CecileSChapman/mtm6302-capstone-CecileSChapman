@@ -33,13 +33,31 @@
     <div class="overlay" id="pokemonDetails">
         <!-- NEED TO ADD BACK BUTTON ICON -->
         <button id="closeOverlay"><i class="fas fa-arrow-left"></i></button>
-        <div class="overlay-background"></div>
+        <div class="overlay-background">
         <div class="overlay-content">
+            <!-- checkbox -->
+            <div class="overlay-top"> 
+                <label for="${pokemonNumber}" class="checkbox-label">
+                    <input type="checkbox" id="${pokemonNumber}" class="default-checkbox">
+                    <span id="checkbox-${pokemonNumber}" class="checkbox-custom"></span>
+                </label>
+                
+                <div id="officialArtwork"></div>
+                <p id="pokemonNumber"></p>
+
+            </div>
+
             <h2 id="pokemonName"></h2>
-            <div id="pokemonType"></div>
-            <div id="pokemonAbilities">
+            <div id="pokemonTypeContainer">
+                <div class="pokemonType grass">Grass</div>
+                <div class="pokemonType poison">Poison</div>
+            </div>
+            <div id="pokemonAbilitiesContainer">
                 <h3>Abilities:</h3>
-                <p id="abilityName"></p>
+                <div id="pokemonAbilities">
+                    <p class="abilityName">Ability1,</p>
+                    <p class="abilityName">Ability2</p>
+                </div>
             </div>
             <div id="pokemonStats">
                 <h3>Stats:</h3>
@@ -93,6 +111,7 @@
 
             </div>
         </div>
+    </div>
     </div>
 
     <!-- JavaScript Links -->
