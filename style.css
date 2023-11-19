@@ -225,9 +225,9 @@ main {
 /* checkbox label */
 .checkbox-label {
     display: flex;
-    align-items: flex-end;
-    padding-bottom: 25px;
+    align-items: center;
 }
+
 
 /* unchecked */
 .checkbox-custom {
@@ -238,6 +238,10 @@ main {
     border-radius: 50%;
     cursor: pointer;
     z-index: 1000;
+}
+
+.noBottomPadding {
+    padding-bottom: 0px;
 }
 
 /* checked */
@@ -280,7 +284,7 @@ main {
     left: 0;
     padding: 20px;
     border-radius: 10px;
-    width: 100%;
+    width: 100vw;
     height: calc(100% - 100px);
     background-color: var(--background-secondary);
     z-index: 10001;
@@ -290,13 +294,14 @@ main {
     display: flex;
     flex-direction: column;
     align-items: center;
-    position: absolute;
+    position: relative;
     top: 25%;
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 20px;
     border-radius: 10px;
-    width: 70%;
+    width: auto;
+    height: 100%;
     z-index: 10002;
 }
 
@@ -306,6 +311,10 @@ main {
     justify-content: space-between;
     width: 70%;
     padding-top: 5%;
+}
+
+#closeOverlay {
+    z-index: 1000000;
 }
 
 #pokemonName {
@@ -362,22 +371,65 @@ main {
 
 #pokemonStats {
     display: flex;
-    align-items: center;
     flex-direction: column;
     width: 70%;
     padding-top: 20px;
     padding-bottom: 30px;
 }
+#pokemonStats h3 {
+    padding-bottom: 20px;
+}
 
 .stat-bar-container {
     background-color: var(--stat-bar-background);
+    min-width: 350px;
+    min-height: 24px;
+    flex-grow: 1;
+    
+}
+
+#hpBar, #atkBar, #defBar, #spAtkBar, #spDefBar, #speedBar {
+    min-height: 24px;
+    background-color: var(--grass);
+}
+
+.stat-bar-number {
+    font-size: 22px;
+    padding: 3px 0px 3px 30px;
+    color: var(--text-primary);
+}
+
+/* individual stat bars */
+#hpBar {
+    width: 45%;
+}
+#atkBar {
+    width: 49%;
+}
+#defBar {
+    width: 49%
+}
+#spAtkBar {
+    width: 65%;
+}
+#spDefBar {
+    width: 65%;
+}
+#speedBar {
+    width: 45%;
 }
 
 .stats-list {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    padding-bottom: 20px;
 }
+
+
+.stat-title {
+    padding-right: 25px;
+    width: 100px;
+}
+
 
 #officialArtworkImg {
     max-width: 300px;

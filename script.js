@@ -65,6 +65,8 @@ function openPokemonDetails(pokemon, pokemonIndex) {
     const pokemonNumber = '#' + String(pokemonIndex + 1).padStart(4, '0');
     const pokemonNumberText = document.getElementById('pokemonNumber');
     console.log(pokemonIndex);
+    const overlayTop = document.getElementById('ovelayTop');
+    const checkboxLabel = document.querySelector(`label[for="${pokemonNumber}"]`);
     
     //updates artwork
     officialArtwork.innerHTML = `<img id="officialArtworkImg" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${getPokemonId(pokemonUrl)}.png" alt="${pokemon.name}"/>`

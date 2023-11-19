@@ -31,12 +31,12 @@
 
     <!-- details overlay -->
     <div class="overlay" id="pokemonDetails">
-        <!-- NEED TO ADD BACK BUTTON ICON -->
+        
         <button id="closeOverlay"><i class="fas fa-arrow-left"></i></button>
         <div class="overlay-background">
         <div class="overlay-content">
             <!-- checkbox -->
-            <div class="overlay-top"> 
+            <div class="overlay-top" id="overlayTop"> 
                 <label for="${pokemonNumber}" class="checkbox-label">
                     <input type="checkbox" id="${pokemonNumber}" class="default-checkbox">
                     <span id="checkbox-${pokemonNumber}" class="checkbox-custom"></span>
@@ -63,49 +63,62 @@
                 <h3>Stats:</h3>
                 <!-- HP -->
                 <div class="stats-list">
-                    <p>HP</p>
+                    <p class="stat-title">HP</p>
                     <div class="stat-bar-container">
-                        <div id="statBar"></div>
+                        <div id="hpBar">
+                            <p class="stat-bar-number" id="hpBarNumber">45</p>
+                        </div>
                     </div>
+                    
                 </div>
 
                 <!-- Attack -->
                 <div class="stats-list">
-                    <p>Attack</p>
+                    <p class="stat-title">Attack</p>
                     <div class="stat-bar-container">
-                        <div id="statBar"></div>
-                    </div>   
+                        <div id="atkBar">
+                            <p class="stat-bar-number" id="atkBarNumber">49</p>
+                        </div>
+                    </div> 
                 </div>
 
                 <!-- Defense -->
                 <div class="stats-list">
-                    <p>Defense</p>
+                    <p class="stat-title">Defense</p>
                     <div class="stat-bar-container">
-                        <div id="statBar"></div>
+                        <div id="defBar">
+                            <p class="stat-bar-number" id="defBarNumber">49</p>
+                        </div>
                     </div>   
                 </div>
                 
                 <!-- Special Attack -->
                 <div class="stats-list">
-                    <p>Sp Atk</p>
+                    <p class="stat-title">Sp Atk</p>
                     <div class="stat-bar-container">
-                        <div id="statBar"></div>
+                        <div id="spAtkBar">
+                            <p class="stat-bar-number" id="spAtkBarNumber">65</p>
+                        </div>
                     </div>   
                 </div>
 
                 <!-- Special Defense -->
                 <div class="stats-list">
-                    <p>HP</p>
+                    <p class="stat-title">Sp Def</p>
                     <div class="stat-bar-container">
-                        <div id="statBar"></div>
+                        <div id="spDefBar">
+                            <p class="stat-bar-number" id="spDefBarNumber">65</p>
+                        </div>
                     </div>   
                 </div>
 
                 <!-- Speed -->
                 <div class="stats-list">
-                    <p>Speed</p>
+                    <p class="stat-title">Speed</p>
                     <div class="stat-bar-container">
-                        <div id="statBar"></div>
+                        <div id="speedBar">
+                            <p class="stat-bar-number" id="speedBarNumber">45</p>
+                        </div>
                     </div>   
                 </div>
 
