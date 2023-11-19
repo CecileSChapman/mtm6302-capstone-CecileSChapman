@@ -89,7 +89,7 @@ body {
     background-color: var(--background-primary);
     font-family: 'Inter', sans-serif;
     color: var(--text-primary);
-    font-size: 24px;
+    font-size: x-large;
     overflow-x: hidden;
 }
 
@@ -103,7 +103,7 @@ header {
 h1 {
     color: var(--title);
     font-family: 'Roboto', sans-serif;
-    font-size: 34px;
+    font-size: xx-large;
     font-weight: 400;
 }
 
@@ -135,7 +135,7 @@ main {
     background-color: var(--red);
     color: white;
     font-family: 'Roboto', sans-serif;
-    font-size: 24px;
+    font-size: x-large;
     padding: 10px 20px;
     margin: 40px;
     border: none;
@@ -200,11 +200,11 @@ main {
 
 .pokemon-number {
     color: var(--text-secondary);
-    font-size: 19px;
+    font-size: large;
 }
 
 .pokemon-name {
-    font-size: 21px;
+    font-size: large;
     padding-bottom: 5px;
 }
 
@@ -279,30 +279,30 @@ main {
 }
 
 .overlay-background {
-    position: absolute;
+    position: sticky;
     top: 20%;
     left: 0;
-    padding: 20px;
     border-radius: 10px;
     width: 100vw;
     height: calc(100% - 100px);
     background-color: var(--background-secondary);
     z-index: 10001;
+    overflow-y: scroll;
 
 }
 .overlay-content {
     display: flex;
     flex-direction: column;
+    row-gap: 10px;
     align-items: center;
-    position: relative;
+    position: sticky;
     top: 25%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding: 20px;
+    left: 0;
     border-radius: 10px;
     width: auto;
     height: 100%;
     z-index: 10002;
+    overflow-y: scroll;
 }
 
 .overlay-top {
@@ -310,7 +310,7 @@ main {
     align-items: center;
     justify-content: space-between;
     width: 70%;
-    padding-top: 5%;
+
 }
 
 #closeOverlay {
@@ -348,25 +348,38 @@ main {
 
 #pokemonAbilitiesContainer {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    
     width: 70%;
     padding-top: 30px;
-    padding-bottom: 20px;
 }
 #pokemonAbilitiesContainer h3 {
     font-weight: 500;
+    font-size: x-large;
+}
+#pokemonAbilities > p:nth-child(2) {
+    padding-left: 10px;
 }
 
 #pokemonAbilities {
     display: flex;
     align-items: center;
-    color: var(--text-secondary)
+    flex-wrap: wrap;
+    color: var(--text-secondary);
+    row-gap: 10px;
 
 }
 
+#pokemonAbilities > h3 {
+    color: var(--text-primary);
+}
+
+h3 {
+    font-size: x-large;
+}
+
 .abilityName {
-    padding-left: 20px;
+    font-size: x-large;
 }
 
 #pokemonStats {
@@ -382,7 +395,6 @@ main {
 
 .stat-bar-container {
     background-color: var(--stat-bar-background);
-    min-width: 350px;
     min-height: 24px;
     flex-grow: 1;
     
@@ -394,8 +406,9 @@ main {
 }
 
 .stat-bar-number {
-    font-size: 22px;
-    padding: 3px 0px 3px 30px;
+    font-size: large;
+    padding-left: 5%;
+    padding-top: 3px;
     color: var(--text-primary);
 }
 
@@ -432,10 +445,14 @@ main {
 
 
 #officialArtworkImg {
-    max-width: 300px;
+    width: 100%;
     height: auto;
     
 }
+#officialArtwork {
+    max-width: 60%;
+}
+
 
 
 /* back button */
@@ -443,7 +460,7 @@ main {
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 24px;
+    font-size: x-large;
     color: var(--text-secondary);
     position: absolute;
     top: 20px;
@@ -460,17 +477,9 @@ main {
     .pokedex {
         grid-template-columns: repeat(3, auto);
     }
-    
-    .pokemon-name {
-        font-size: 17px;
-    }
 
     .pokemon-card {
         width: 28vw;
-    }
-
-    .pokemon-number {
-        font-size: 15px;
     }
 }
 
@@ -482,18 +491,11 @@ main {
     .pokedex {
         grid-template-columns: repeat(2, auto);
     }
-    
-    .pokemon-name {
-        font-size: 15px;
-    }
 
     .pokemon-card {
         width: 40vw;
     }
 
-    .pokemon-number {
-        font-size: 13px;
-    }
 }
 
 
