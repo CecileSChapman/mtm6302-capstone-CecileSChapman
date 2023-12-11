@@ -49,7 +49,9 @@ async function displayPokemon() {
 function getPokemonId(url) {
     const parts = url.split('/'); // splits the url by the slashes, making an array
     return parts[parts.length - 2]; // the id is the second-to-last part of the url
+    
 }
+
 
 
 // event listener to call the displayPokemon function when the page loads
@@ -61,7 +63,7 @@ function openPokemonDetails(pokemon, pokemonIndex) {
     const officialArtwork = document.getElementById('officialArtwork'); //stores artwork div
     const overlayHeader = document.getElementById('pokemonName'); //stores overlay h2, name of pokemon
     const pokemonUrl = document.getElementById('pokemonUrl-' + pokemonIndex).value;
-    parseInt(pokemonIndex);
+    pokemonIndex = parseInt(pokemonIndex);
     const pokemonNumber = '#' + String(pokemonIndex + 1).padStart(4, '0');
     const pokemonNumberText = document.getElementById('pokemonNumber');
     console.log(pokemonIndex);
