@@ -6,44 +6,39 @@ async function fetchPokemonData() {
 }
 
 // display pokemon data in html
-async function displayPokemon() {
-    const pokedex = document.querySelector('.pokedex'); // get container for pokemon gallery
-    const pokemonData = await fetchPokemonData(); // fetch pokemon data
-    
-    pokemonData.forEach((pokemon, index) => {
-        const pokemonCard = document.createElement('div'); // create a card for each pokemon
-        pokemonCard.classList.add('pokemon-card'); // css class for styling the card
-        
-        // pokemon number
-        const pokemonNumber = '#' + String(index + 1).padStart(4, '0');
+async function displayPokemon(pokemonIndex) {
+    const pokedex = document.querySelector('.pokedex');
+    const pokemonData = await fetchPokemonData();
 
+    pokemonData.forEach((pokemon, index) => {
+        const pokemonCard = document.createElement('div');
+        pokemonCard.classList.add('pokemon-card');
+        
+        const pokemonNumber = '#' + String(index + 1).padStart(4, '0');
         pokemonCard.id = "pokemon-" + index;
 
-        // pokemon card html
         pokemonCard.innerHTML = `
             <div class="pokemon-details-top">
-                <!--name-->
                 <p class="pokemon-name">${pokemon.name}</p> 
-                <!-- Number -->
                 <p class="pokemon-number">${pokemonNumber}</p>
             </div>
             <div class="pokemon-details-bottom">
-                <!--checkbox for marking caught pokemon-->
-                <label for="${pokemonNumber}" class="checkbox-label">
-                    <input type="checkbox" id="${pokemonNumber}" class="default-checkbox">
-                    <span id="checkbox-${pokemonNumber}" class="checkbox-custom"></span>
+                <label for="checkbox-${pokemonNumber}" class="checkbox-label">
+                    <input type="checkbox" id="checkbox-${pokemonNumber}" class="default-checkbox">
+                    <span class="checkbox-custom"></span>
                 </label>
                 <input type='hidden' value='${pokemon.url}' id='pokemonUrl-${index}'/>
-
-                <!--thumbnail-->
                 <div class="pokemon-img">
                     <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${getPokemonId(pokemon.url)}.png" alt="${pokemon.name}"/>
                 </div>
             </div>
         `;
-        pokedex.appendChild(pokemonCard); // add card to pokedex container
+        pokedex.appendChild(pokemonCard);
+
+        
     });
 }
+
 
 // function to get pokemon id from url
 function getPokemonId(url) {
@@ -66,10 +61,17 @@ function openPokemonDetails(pokemon, pokemonIndex) {
     pokemonIndex = parseInt(pokemonIndex);
     const pokemonNumber = '#' + String(pokemonIndex + 1).padStart(4, '0');
     const pokemonNumberText = document.getElementById('pokemonNumber');
-    console.log(pokemonIndex);
-    const overlayTop = document.getElementById('ovelayTop');
-    const checkboxLabel = document.querySelector(`label[for="${pokemonNumber}"]`);
-    
+    const pokemonTypeContainer = document.getElementById('pokemonTypeContainer');
+    const pokemonAbilities = document.getElementById('pokemonAbilities');
+    const checkbox = document.getElementById('checkbox-' + pokemonNumber);
+    const overlayCheckbox = document.getElementById('overlay-checkbox');
+    const overlayPokemonNumber = document.getElementById('overlayPokemonNumber');
+
+    overlayPokemonNumber.value = pokemonNumber;
+
+    // updates overlay checkbox
+    overlayCheckbox.checked = checkbox.checked;
+
     //updates artwork
     officialArtwork.innerHTML = `<img id="officialArtworkImg" src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${getPokemonId(pokemonUrl)}.png" alt="${pokemon.name}"/>`
     
@@ -78,6 +80,48 @@ function openPokemonDetails(pokemon, pokemonIndex) {
 
     //updates pokemon name
     overlayHeader.innerText = pokemon.name;
+
+    //updates pokemon types
+    pokemonTypeContainer.innerHTML = ''; //deletes previous
+    pokemon.types.forEach(type => {
+        const addType = document.createElement('div');
+        addType.classList.add('pokemonType', type.type.name);
+        addType.innerText = (type.type.name);
+        pokemonTypeContainer.appendChild(addType);
+    })
+
+    // removes previous abilities
+    pokemonAbilities.innerHTML = '';
+    // updates pokemon abilities
+    pokemon.abilities.forEach((ability, index) => {
+        const addAbility = document.createElement ('p');
+        addAbility.classList.add('abilityName');
+        addAbility.innerText = ability.ability.name;
+        pokemonAbilities.appendChild(addAbility);
+
+        //comma after ability except last one
+        if (index < pokemon.abilities.length - 1) {
+            addAbility.innerText += ',';
+        }
+    })
+
+    // pokemon stats
+    updateStatBar('hpBar', pokemon.stats[0].base_stat);
+    updateStatBar('atkBar', pokemon.stats[1].base_stat);
+    updateStatBar('defBar', pokemon.stats[2].base_stat);
+    updateStatBar('spAtkBar', pokemon.stats[3].base_stat);
+    updateStatBar('spDefBar', pokemon.stats[4].base_stat);
+    updateStatBar('speedBar', pokemon.stats[5].base_stat);
+
+    // update width of stat bar
+    function updateStatBar(barId, statNumber) {
+        const statBar = document.getElementById(barId);
+        const statBarNumber = statBar.querySelector('.stat-bar-number');
+        const maxWidth = 100;
+        const width = (statNumber / 150) * maxWidth;
+        statBar.style.width = `${width}%`;
+        statBarNumber.innerText = statNumber;
+    }
 
     //shows the overlay
     overlay.style.display = 'block';
@@ -88,6 +132,20 @@ function openPokemonDetails(pokemon, pokemonIndex) {
         overlay.style.display = 'none';
     });
 }
+
+document.addEventListener('change', (event) => {
+    const targetElement = event.target;
+    const id = "" + targetElement.id;
+
+    if (id === 'overlay-checkbox') {
+
+        const pokemonNumber = document.getElementById('overlayPokemonNumber').value;
+        const checkbox = document.getElementById('checkbox-' + pokemonNumber);
+        
+        checkbox.checked = targetElement.checked;
+                        
+    }
+})
 
 async function fetchPokemonDetails(pokemonName) {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}`);
@@ -101,12 +159,11 @@ async function fetchPokemonDetails(pokemonName) {
     const classNames = "" + targetElement.className;
     const id = "" + targetElement.id;
 
-    if(classNames.includes("pokemon-card")){
+    if (classNames.includes("pokemon-card")) {
         const pokemonCard = targetElement;
         const pokemonIndex = id.split('-')[1];
-        
-        //check for checkbox click to not open the overlay
 
+        // check for checkbox click to not open the overlay
         if (event.target.classList.contains('default-checkbox', 'checkbox-custom')) {
             return;
         }
@@ -114,10 +171,11 @@ async function fetchPokemonDetails(pokemonName) {
         if (pokemonCard) {
             const pokemonName = pokemonCard.querySelector('.pokemon-name').innerText;
             const pokemonDetails = await fetchPokemonDetails(pokemonName);
-
-            console.log(pokemonDetails)
-
+            console.log(pokemonDetails);
             openPokemonDetails(pokemonDetails, pokemonIndex);
-        }
+        
     }
- });
+}
+});
+
+
