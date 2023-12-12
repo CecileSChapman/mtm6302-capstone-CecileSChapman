@@ -1,14 +1,16 @@
+let currentNumberPokemon = 20;
+
 // fetch first 20 pokemon
-async function fetchPokemonData() {
-    const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=20'); // api request
+async function fetchPokemonData(numberPokemon) {
+    const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=' + numberPokemon); // api request
     const data = await response.json(); // parse as JSON
     return data.results; // return list of pokemon
 }
 
 // display pokemon data in html
-async function displayPokemon(pokemonIndex) {
+async function displayPokemon(numberPokemon) {
     const pokedex = document.querySelector('.pokedex');
-    const pokemonData = await fetchPokemonData();
+    const pokemonData = await fetchPokemonData(numberPokemon);
 
     pokemonData.forEach((pokemon, index) => {
         const pokemonCard = document.createElement('div');
@@ -35,7 +37,10 @@ async function displayPokemon(pokemonIndex) {
         `;
         pokedex.appendChild(pokemonCard);
 
-        
+        const checkboxId = 'checkbox-' + pokemonNumber;
+        const checkbox = document.getElementById(checkboxId);
+        const checkboxStatus = localStorage.getItem(checkboxId);
+        checkbox.checked = checkboxStatus === "true";
     });
 }
 
@@ -50,7 +55,9 @@ function getPokemonId(url) {
 
 
 // event listener to call the displayPokemon function when the page loads
-window.addEventListener('load', displayPokemon);
+window.addEventListener('load', function(){
+    displayPokemon(currentNumberPokemon);
+});
 
 // pokemon details overlay
 function openPokemonDetails(pokemon, pokemonIndex) {
@@ -133,8 +140,13 @@ function openPokemonDetails(pokemon, pokemonIndex) {
     });
 }
 
+function storeCatchedPokemon(pokemonCheckboxId, pokemonCheckboxStatus) {
+    localStorage.setItem(pokemonCheckboxId, pokemonCheckboxStatus);
+}
+
 document.addEventListener('change', (event) => {
     const targetElement = event.target;
+    const classNames = "" + targetElement.className;
     const id = "" + targetElement.id;
 
     if (id === 'overlay-checkbox') {
@@ -143,7 +155,11 @@ document.addEventListener('change', (event) => {
         const checkbox = document.getElementById('checkbox-' + pokemonNumber);
         
         checkbox.checked = targetElement.checked;
+       storeCatchedPokemon(checkbox.id, checkbox.checked);
                         
+    } else if (classNames.includes('default-checkbox')) {
+
+        storeCatchedPokemon(id, targetElement.checked);
     }
 })
 
