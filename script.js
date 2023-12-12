@@ -12,6 +12,8 @@ async function displayPokemon(numberPokemon) {
     const pokedex = document.querySelector('.pokedex');
     const pokemonData = await fetchPokemonData(numberPokemon);
 
+    pokedex.innerHTML ='';
+
     pokemonData.forEach((pokemon, index) => {
         const pokemonCard = document.createElement('div');
         pokemonCard.classList.add('pokemon-card');
@@ -162,6 +164,14 @@ document.addEventListener('change', (event) => {
         storeCatchedPokemon(id, targetElement.checked);
     }
 })
+
+// load more button 
+async function loadMorePokemon() {
+    currentNumberPokemon += 20;
+    displayPokemon(currentNumberPokemon);
+}
+const loadMore = document.getElementById('loadMore');
+loadMore.addEventListener('click', loadMorePokemon)
 
 async function fetchPokemonDetails(pokemonName) {
     const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonName.toLowerCase()}`);
